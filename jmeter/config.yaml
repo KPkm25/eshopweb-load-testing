@@ -1,0 +1,30 @@
+displayName: ado_load_test
+testPlan: quick_test.jmx
+description: ''
+engineInstances: 1
+testId: ado_load_test
+testType: JMX
+splitAllCSVs: False
+failureCriteria:
+  - avg(response_time_ms) > 300
+  - percentage(error) > 50
+referenceIdentities:
+- kind: KeyVault
+  type: SystemAssigned
+- kind: Metrics
+  type: SystemAssigned
+env:
+- name: domain
+  value: az400eshoponweb52031140.azurewebsites.net
+- name: protocol
+  value: https
+- name: threads_per_engine
+  value: 50
+- name: ramp_up_time
+  value: 60
+- name: duration_in_sec
+  value: 300
+autoStop:
+  errorPercentage: 90
+  timeWindow: 60
+  maximumVirtualUsersPerEngine: 5000
